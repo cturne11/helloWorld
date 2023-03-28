@@ -7,6 +7,7 @@
 </head>
 
 <body>
+<!-- Creation of navbar to shown Smith School Logo on all pages-->
 
     <nav class="navbar" style="background-color: #f62929;">
         <div class="container-fluid">
@@ -14,14 +15,16 @@
         </div>
     </nav>
 
+
+<!-- Centers and italicizes all text for header-->
 <div class="container">
     <div class="text-center">
         <h1><em>{% block page_head %}{% endblock %}</em></h1>
     </div>
+
     <hr>
 
     {% block page_content %}{% endblock %}
-
 
 </div>
 
