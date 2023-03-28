@@ -1,29 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Contact</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-</head>
-<body>
+{% extends "base.html" %}
 
-<p>Favorite Course</p>
+{% block page_title %}Contact Form{% endblock %}
 
-<form class="row g-3" action="{{ url_for('favorite_course') }}" method="post">
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Subject</label>
-        <input class="form-control" id="subject">
-    </div>
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Course Number</label>
-        <input class="form-control" id="course_number">
-    </div>
+{% block page_head %}CONTACT FORM{% endblock %}
 
+{% block page_content %}
+
+{% if form_submitted %}
     <div class="col-12">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <h2>Thank you for submitting our contact form!</h2>
+        <p>Your contact information can be seen below:</p>
     </div>
+    <div class="col-md-6">
+        <p>First Name:</p>
+    </div>
+    <div class="col-md-6">
+        <p>{{ request.form.get('first_name')}}</p>
+    </div>
+    <div class="col-md-6">
+        <p>Last Name:</p>
+    </div>
+    <div class="col-md-6">
+        <p>{{ request.form.get('last_name')}}</p>
+    </div>
+    <div class="col-md-6">
+        <p>Email Address:</p>
+    </div>
+    <div class="col-md-6">
+        <p>{{ request.form.get('email')}}</p>
+    </div>
+    <div class="col-md-6">
+        <p>Academic Major:</p>
+    </div>
+    <div class="col-md-6">
+        <p>{{ request.form.get('major')}}</p>
+    </div>
+    <div class="col-md-6">
+        <p>Agree to be contacted:</p>
+    </div>
+    <div class="col-md-6">
+        <p>{{ 'Yes' if request.form.get('agree_check') else 'No'}}</p>
+    </div>
+
+    <p><a href="{{ url_for('contact') }}">Complete Contact Form Again</a></p>
+
+{% else %}
+
+<form class="row g-3" action={{ url_for('contact') }} method="post">
+    <div class ="col-md-6">
+        <label for="first_name" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="first_name" name="first_name">
+    </div>
+    <div class ="col-md-6">
+        <label for="last_name" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="last_name" name="last_name">
+    </div>
+    <div class ="col-md-6">
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" class="form-control" id="email" name="email">
+    </div>
+    <div class ="col-md-6">
+        <label for="major" class="form-label">Academic Major</label>
+        <input type="text" class="form-control" id="major" name="major">
+    </div>
+    <div class="col-12">
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="agree_check" name="agree_check">
+        <label class="form-check-label" for="agree_check">
+            I agree to be contacted
+        </label>
+    </div>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Submit Form</button>
+    </div>
+
 
 </form>
 
-</body>
-</html>
+{% endif %}
+
+{% endblock %}
